@@ -17,10 +17,10 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = References.ModID, name = References.ModName, useMetadata = true,serverSideOnly = true, acceptableRemoteVersions = "*")
 public class VoidIslandControl {
-	@SidedProxy(clientSide = "com.bartz24.voidislandcontrol.proxy.ClientProxy", serverSide = "com.bartz24.voidislandcontrol.proxy.ServerProxy")
-	public static CommonProxy proxy;
 
-	@Mod.Instance
+	public static CommonProxy proxy = new ServerProxy();
+
+	@Mod.Instance(References.ModID)
 	public static VoidIslandControl instance;
 
 	public static Logger logger;
