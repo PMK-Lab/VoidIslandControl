@@ -34,24 +34,7 @@ import java.util.List;
 import java.util.Random;
 
 public class EventHandler {
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public void onOpenGui(GuiOpenEvent e) {
-        if (e.getGui() instanceof GuiCreateWorld
-                && Minecraft.getMinecraft().currentScreen instanceof GuiWorldSelection) {
-            // Thanks YUNoMakeGoodMap :D
-            GuiCreateWorld cw = (GuiCreateWorld) e.getGui();
-            ReflectionHelper.setPrivateValue(GuiCreateWorld.class, cw, getType(), "field_146331_K", "selectedIndex");
-        }
-    }
-
-    private int getType() {
-        for (int i = 0; i < WorldType.WORLD_TYPES.length; i++) {
-            if (WorldType.WORLD_TYPES[i] instanceof WorldTypeVoid)
-                return i;
-        }
-        return 0;
-    }
+   
     @SubscribeEvent
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.player.getEntityWorld().isRemote) {
