@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = References.ModID, name = References.ModName, useMetadata = true)
+@Mod(modid = References.ModID, name = References.ModName, useMetadata = true,serverSideOnly = true, acceptableRemoteVersions = "*")
 public class VoidIslandControl {
 	@SidedProxy(clientSide = "com.bartz24.voidislandcontrol.proxy.ClientProxy", serverSide = "com.bartz24.voidislandcontrol.proxy.ServerProxy")
 	public static CommonProxy proxy;
