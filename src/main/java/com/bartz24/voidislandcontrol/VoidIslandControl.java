@@ -33,24 +33,24 @@ public class VoidIslandControl {
 		event.registerServerCommand(new AdminCommand());
 		logger.info("Finished registering Void Island Control commands.");
 
-		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			IslandManager.CurrentIslandsList.clear();
-			IslandManager.spawnedPlayers.clear();
-			IslandManager.worldOneChunk = false;
-			IslandManager.initialIslandDistance = ConfigOptions.islandSettings.islandDistance;
-			World world = event.getServer().getEntityWorld();
-			if (!world.isRemote) {
-				VoidIslandControlSaveData worldData = (VoidIslandControlSaveData) world
-						.loadData(VoidIslandControlSaveData.class, VoidIslandControlSaveData.dataName);
 
-				if (worldData == null) {
-					worldData = new VoidIslandControlSaveData(VoidIslandControlSaveData.dataName);
-					world.setData(VoidIslandControlSaveData.dataName, worldData);
-				}
+		IslandManager.CurrentIslandsList.clear();
+		IslandManager.spawnedPlayers.clear();
+		IslandManager.worldOneChunk = false;
+		IslandManager.initialIslandDistance = ConfigOptions.islandSettings.islandDistance;
+		World world = event.getServer().getEntityWorld();
+		if (!world.isRemote) {
+			VoidIslandControlSaveData worldData = (VoidIslandControlSaveData) world
+				.loadData(VoidIslandControlSaveData.class, VoidIslandControlSaveData.dataName);
 
-				VoidIslandControlSaveData.setInstance(world.provider.getDimension(), worldData);
+			if (worldData == null) {
+				worldData = new VoidIslandControlSaveData(VoidIslandControlSaveData.dataName);
+				world.setData(VoidIslandControlSaveData.dataName, worldData);
 			}
+
+			VoidIslandControlSaveData.setInstance(world.provider.getDimension(), worldData);
 		}
+		
 	}
 
 	@Mod.EventHandler
