@@ -7,24 +7,18 @@ import com.bartz24.voidislandcontrol.config.ConfigOptions.CommandSettings.Comman
 import com.bartz24.voidislandcontrol.world.WorldTypeVoid;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCommandBlock;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiCreateWorld;
-import net.minecraft.client.gui.GuiWorldSelection;
 import net.minecraft.command.CommandException;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityCommandBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
 import net.minecraft.world.border.WorldBorder;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.WorldEvent.Save;
@@ -32,9 +26,6 @@ import net.minecraftforge.event.world.WorldEvent.Unload;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nullable;
@@ -43,24 +34,7 @@ import java.util.List;
 import java.util.Random;
 
 public class EventHandler {
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public void onOpenGui(GuiOpenEvent e) {
-        if (e.getGui() instanceof GuiCreateWorld
-                && Minecraft.getMinecraft().currentScreen instanceof GuiWorldSelection) {
-            // Thanks YUNoMakeGoodMap :D
-            GuiCreateWorld cw = (GuiCreateWorld) e.getGui();
-            ReflectionHelper.setPrivateValue(GuiCreateWorld.class, cw, getType(), "field_146331_K", "selectedIndex");
-        }
-    }
-
-    private int getType() {
-        for (int i = 0; i < WorldType.WORLD_TYPES.length; i++) {
-            if (WorldType.WORLD_TYPES[i] instanceof WorldTypeVoid)
-                return i;
-        }
-        return 0;
-    }
+   
     @SubscribeEvent
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.player.getEntityWorld().isRemote) {
